@@ -14,7 +14,6 @@ st.title("🎬 Análise de Filmes - TMDb")
 
 @st.cache_data
 def carregar_dados():
-    # Links diretos de download via Google Drive
     url_movies = "https://drive.google.com/uc?export=download&id=17dWfqGAtdKZAR0rTCT6cv7weiIcrNycZ"
     url_credits = "https://drive.google.com/uc?export=download&id=1hQwFfz4ZXtF9UYwiH7VEwThbg207XjRL"
 
@@ -49,10 +48,10 @@ df["main_genre"] = df["genres"].apply(main_genre)
 aba = st.sidebar.radio("Navegação", ["Exploração", "Visualizações", "Modelo Preditivo"])
 
 if aba == "Exploração":
-    st.subheader("📊 Estatísticas Descritivas")
+    st.subheader("Estatísticas Descritivas")
     st.dataframe(df[["budget", "revenue", "vote_average", "popularity", "vote_count"]].describe())
 
-    st.subheader("🎥 Exemplos de Filmes para Contexto")
+    st.subheader("Exemplos de Filmes para Contexto")
     st.write("Top 5 por nota média:")
     top5 = df.sort_values("vote_average", ascending=False)[["title_y", "vote_average", "vote_count"]].head(5)
     st.dataframe(top5)
@@ -62,7 +61,7 @@ if aba == "Exploração":
     st.dataframe(top_votes5)
 
 elif aba == "Visualizações":
-    st.subheader("📈 Gráficos de Distribuição e Relações")
+    st.subheader("Gráficos de Distribuição e Relações")
     col1, col2 = st.columns(2)
 
     with col1:
@@ -89,7 +88,7 @@ elif aba == "Visualizações":
     st.pyplot(fig4)
 
 elif aba == "Modelo Preditivo":
-    st.subheader("🔮 Previsão de Nota de Filme")
+    st.subheader("Previsão de Nota de Filme")
     
     # Preparar features e target
     X = df[["budget", "revenue", "popularity", "vote_count"]].fillna(0)
@@ -113,7 +112,7 @@ elif aba == "Modelo Preditivo":
     """)
     
     st.markdown("---")
-    st.subheader("📥 Faça sua própria previsão")
+    st.subheader("Faça sua própria previsão")
     budget = st.number_input("Orçamento", min_value=0, value=10000000, step=100000)
     revenue = st.number_input("Receita", min_value=0, value=30000000, step=100000)
     popularity = st.slider("Popularidade", min_value=0.0, max_value=float(df["popularity"].max()), value=10.0, step=0.1)
@@ -122,4 +121,4 @@ elif aba == "Modelo Preditivo":
     entrada = np.array([[budget, revenue, popularity, vote_count]])
     nota_prevista = model.predict(entrada)[0]
     
-    st.success(f"🎯 Nota prevista: {nota_prevista:.2f}")
+    st.success(f"Nota prevista: {nota_prevista:.2f}")
