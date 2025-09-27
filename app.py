@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 
 st.set_page_config(layout="wide")
-st.title("🎬 Análise de Filmes - TMDb (dados via Google Drive)")
+st.title("🎬 Análise de Filmes - TMDb")
 
 @st.cache_data
 def carregar_dados():
@@ -54,11 +54,11 @@ if aba == "Exploração":
 
     st.subheader("🎥 Exemplos de Filmes para Contexto")
     st.write("Top 5 por nota média:")
-    top5 = df.sort_values("vote_average", ascending=False)[["title", "vote_average", "vote_count"]].head(5)
+    top5 = df.sort_values("vote_average", ascending=False)[["title_y", "vote_average", "vote_count"]].head(5)
     st.dataframe(top5)
     
     st.write("Top 5 por número de votos:")
-    top_votes5 = df.sort_values("vote_count", ascending=False)[["title", "vote_average", "vote_count"]].head(5)
+    top_votes5 = df.sort_values("vote_count", ascending=False)[["title_y", "vote_average", "vote_count"]].head(5)
     st.dataframe(top_votes5)
 
 elif aba == "Visualizações":
